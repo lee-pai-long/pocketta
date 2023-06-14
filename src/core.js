@@ -7,6 +7,7 @@ import fs from 'fs';
  *
  * @param {String} tabs_file_path - the path of the file to load
  * @returns {Array} - an array of urls
+ * @throws {Error} - in case loading the tabs file fails
  */
 export function extract_urls_from_tabs_file(tabs_file_path) {
     
