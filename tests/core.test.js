@@ -1,8 +1,8 @@
-import { load_tabs_file } from '../src/core';
+import { extract_urls_from_tabs_file } from '../src/core';
 const fs = require("fs");
 
 
-describe('load_tabs_file', () => {
+describe('extract_urls_from_tabs_file', () => {
     describe('When given a valid file_path', () => {
 
         const file_path = 'tabs.csv'
@@ -15,16 +15,11 @@ describe('load_tabs_file', () => {
         it(
             'should return a list of tab objects with <title> and <url> for each one',
             () => {
-                const tabs = load_tabs_file(file_path)
+                const tabs = extract_urls_from_tabs_file(file_path)
                 
                 expect(tabs).toBeInstanceOf(Array)
                 expect(tabs).toHaveLength(number_of_tabs)
 
-                for (const tab of tabs){
-                    expect(tab).toBeInstanceOf(Object)
-                    expect(tab).toHaveProperty('title')
-                    expect(tab).toHaveProperty('url')
-                }
             }
         );
     }),
@@ -34,7 +29,7 @@ describe('load_tabs_file', () => {
             () => {
                 const bad_path = 'bad/path'
                 try {
-                    load_tabs_file(bad_path)
+                    extract_urls_from_tabs_file(bad_path)
                 } catch (e) {
                     expect(e.message).toContain(
                         `Unable to load tab file '${bad_path}'`
