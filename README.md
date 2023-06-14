@@ -1,2 +1,1 @@
-# pocketta
-Save multiple urls to pocket.com at once
+# Pocketta: Save multiple urls to pocket.com at once
