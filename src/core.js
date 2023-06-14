@@ -18,10 +18,19 @@ export function extract_urls_from_tabs_file(tabs_file_path) {
             .split('\n')
     } catch (e) {
         throw new Error(
-            `Unable to load tab file '${tabs_file_path}'`,
+            `Unable to load tab file '${tabs_file_path}': ${e.message}`,
             { cause: e }
         );
     }
 
     return lines.map(( line ) => line.split('|')[0].trim())
 }
+
+
+/**
+ * Use pocket API to bulk save the given list of urls
+ * @param {Array} urls - an array containing the urls to save to pocket
+ * @returns {Array} - an array of urls
+ * @throws {Error} - in case the pocket API call doesn't return a successful response
+ */
+export function save_urls_to_pocket(urls) {}
