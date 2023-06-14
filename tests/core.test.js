@@ -1,5 +1,6 @@
+import fs from 'fs';
+
 import { extract_urls_from_tabs_file } from '../src/core';
-const fs = require("fs");
 
 
 describe('extract_urls_from_tabs_file', () => {
