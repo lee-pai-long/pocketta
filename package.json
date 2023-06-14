@@ -1,4 +1,7 @@
 {
+  "bin": {
+    "pocketta": "bin/pocketta.js"
+  },
   "type": "module",
   "devDependencies": {
     "@babel/core": "^7.22.5",
@@ -30,6 +33,7 @@
     }
   },
   "dependencies": {
-    "commander": "^10.0.1"
+    "commander": "^10.0.1",
+    "shelljs": "^0.8.5"
   }
 }
