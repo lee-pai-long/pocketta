@@ -1,6 +1,14 @@
 const fs = require("fs");
 const { parse } = require("csv-parse");
 
+
+/**
+ * Read a tabs csv file with url and title separated by an '|'
+ * and return a tabs array containing tab object with attributes 'url' and 'title'
+ *
+ * @param {String} tabs_file_path - the path of the file to load
+ * @returns {Array} - an array of tabs(url, title)
+ */
 export function load_tabs_file(tabs_file_path) {
     
     let raw_tabs = []
