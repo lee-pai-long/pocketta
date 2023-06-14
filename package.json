@@ -1,8 +1,35 @@
 {
   "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "babel-jest": "^29.5.0",
     "jest": "^29.5.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest --verbose ./tests --coverage --collectCoverageFrom='./src/**'"
+  },
+  "babel": {
+    "env": {
+      "test": {
+        "plugins": [
+          "@babel/plugin-transform-modules-commonjs"
+        ],
+        "presets": [
+          [
+            "@babel/preset-env",
+            {
+              "targets": {
+                "node": "current"
+              }
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "dependencies": {
+    "commander": "^10.0.1",
+    "csv-parse": "^5.4.0"
   }
 }
