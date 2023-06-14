@@ -13,7 +13,14 @@ function main() {
 
     cli 
         .name('pocketta')
-        .description('Save multiple urls to pocket.com at once')
+        .description(
+            'Save multiple urls to pocket.com at once.\n' +
+            'If the `--file` option is ommitted,\n' +
+            'we use the `tabs.csv` file present in\n' +
+            'the root of the project as default.\n' +
+            'Once the urls in the default file are saved without error,\n' +
+            'we delete the file.'
+        )
         .version(
             fs.readFileSync('./.node-version')
                 .toString()
