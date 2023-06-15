@@ -1,7 +1,8 @@
 import fs from 'fs';
 
-import GetPocket from 'node-getpocket';
+import axios from 'axios';
 
+import 'axios-debug-log';
 
 /**
  * Read a tabs csv file with url and title separated by an '|'
@@ -35,41 +36,30 @@ export function extract_urls_from_tabs_file(tabs_file_path) {
  * @throws {Error} - in case the pocket API call doesn't return a successful response
  */
 export function save_urls_to_pocket(urls) {
-    const config = {
-        consumer_key: process.env.POCKET_CONSUMER_KEY,
-        access_token: process.env.POCKET_ACCESS_TOKEN
-    };
 
-    var pocket = new GetPocket(config);
-
-    pocket.refreshConfig(config);
-
-    let params = {}
-    Object.assign(params, config);
-    params.actions = urls.map( url => ({action: 'add', url: url}))
-
-    try {
-        pocket.send(
-            params,
-            function(error, response) {
-                console.log('in callback');
-                if (error) {
-                    throw new Error(
-                        `Unable to save urls to pocket: ${error}`
-                    )
-                }
-                console.log(response)
-                if ( response['action_results'].length === urls.length ) {
-                    console.log("All urls have been successfully saved on pocket")
+    axios
+        .post(
+            "https://getpocket.com/v3/send",
+            {
+                "consumer_key": process.env.POCKET_CONSUMER_KEY,
+                "access_token": process.env.POCKET_ACCESS_TOKEN,
+                "actions": urls.map( url => ({action: 'add', url: url}))
+            },
+            {
+                "headers": {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    'X-Accept': 'application/json'
                 }
             }
-        );
-    } catch (e) {
-        throw new Error(
-            `Unable to save urls to pocket: ${e.message}`
         )
-    }
+            .then(function (response) {
+                if (response.data.action_results.length == urls.length) {
+                    console.log("All urls successfully saved in pocket");
+                }
+            })
+            .catch(function (error) {
+                console.log("Unable to save urls in pocket: " + error);
+            });
 
     return true
-
 }

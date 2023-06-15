@@ -41,12 +41,8 @@ function main() {
         process.exit(1)
     }
 
-    try {
-        save_urls_to_pocket(urls)
-    } catch (e) {
-        console.log(e)
-        process.exit(1)
-    }
+
+    save_urls_to_pocket(urls)
 
     process.exit(0)
 }
