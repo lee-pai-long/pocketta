@@ -17,7 +17,7 @@ describe('extract_urls_from_tabs_file', () => {
             'should return a list of tab objects with <title> and <url> for each one',
             () => {
                 const tabs = extract_urls_from_tabs_file(file_path)
-                
+
                 expect(tabs).toBeInstanceOf(Array)
                 expect(tabs).toHaveLength(number_of_tabs)
 

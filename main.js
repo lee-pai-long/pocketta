@@ -11,7 +11,7 @@ const DEFAULT_TABS_FILE_PATH = './tabs.csv'
 
 function main() {
 
-    cli 
+    cli
         .name('pocketta')
         .description(
             'Save multiple urls to pocket.com at once.\n' +
