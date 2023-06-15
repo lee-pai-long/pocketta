@@ -35,9 +35,6 @@ export function extract_urls_from_tabs_file(tabs_file_path) {
  * @throws {Error} - in case the pocket API call doesn't return a successful response
  */
 export function save_urls_to_pocket(urls) {
-
-    console.log(`Saving urls to pocket`)
-
     const config = {
         consumer_key: process.env.POCKET_CONSUMER_KEY,
         access_token: process.env.POCKET_ACCESS_TOKEN
