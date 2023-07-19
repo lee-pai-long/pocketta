@@ -4,6 +4,8 @@ import request from 'sync-request';
 
 import { getReasonPhrase } from 'http-status-codes';
 
+import CONFIG from './config.json';
+
 
 /**
  * Read a tabs csv file with url and title separated by an '|'
@@ -26,7 +28,19 @@ export function extract_urls_from_tabs_file(tabs_file_path) {
         );
     }
 
-    return lines.map(( line ) => line.split('|')[0].trim())
+    return lines
+        .filter(
+            ( line ) => {
+                for (const to_exclude of CONFIG.exclude) {
+                    if ( !line.includes(to_exclude) ) {
+                        return line
+                    }
+                }
+            }
+        )
+        .map(
+            ( line ) => line.split('|')[0].trim()
+        )
 }
 
 

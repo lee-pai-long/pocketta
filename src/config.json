@@ -1,0 +1,10 @@
+{
+    "exclude": [
+        "frenzza.atlassian.net",
+        "www.codecademy.com",
+        "www.smsmode.com",
+        "pypi.org",
+        "localhost",
+        "teams.microsoft.com"
+    ]
+}

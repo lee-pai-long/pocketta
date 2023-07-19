@@ -2,27 +2,50 @@ import fs from 'fs';
 
 import { extract_urls_from_tabs_file } from '../src/core';
 
+import CONFIG from '../src/config.json';
+
 
 describe('extract_urls_from_tabs_file', () => {
     describe('When given a valid file_path', () => {
 
-        const file_path = 'tabs.csv'
+        const file_path = './tests/tabs.csv'
 
-        const number_of_tabs = fs.readFileSync(file_path)
+        const number_of_urls = fs.readFileSync(file_path)
             .toString()
             .split('\n')
+            .filter(
+                ( line ) => {
+                    for (const to_exclude of CONFIG.exclude) {
+                        if ( !line.includes(to_exclude) ) {
+                            return line
+                        }
+                    }
+                }
+            )
             .length
 
+        const urls = extract_urls_from_tabs_file(file_path)
+
         it(
-            'should return a list of tab objects with <title> and <url> for each one',
+            'should return a list of urls extracted from the given file',
             () => {
-                const tabs = extract_urls_from_tabs_file(file_path)
-
-                expect(tabs).toBeInstanceOf(Array)
-                expect(tabs).toHaveLength(number_of_tabs)
-
+                expect(urls).toBeInstanceOf(Array)
+                expect(urls).toHaveLength(number_of_urls)
             }
         );
+
+        it(
+            'should exclude any link for which the domain is in the CONFIG.exclude list',
+            () => {
+                urls.filter(
+                    ( line ) => {
+                        for (const to_exclude of CONFIG.exclude) {
+                            expect(line.includes(to_exclude)).toBe(false);
+                        }
+                    }
+                )
+            }
+        )
     }),
     describe('When given a invalid file_path', () => {
         it(
@@ -38,6 +61,6 @@ describe('extract_urls_from_tabs_file', () => {
                 }
             }
 
-        )
+        );
     })
 })
