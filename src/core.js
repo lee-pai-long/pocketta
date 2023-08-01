@@ -4,7 +4,7 @@ import request from 'sync-request';
 
 import { getReasonPhrase } from 'http-status-codes';
 
-import CONFIG from './config.json';
+import CONFIG from './config.json' assert { type: 'json' };
 
 
 /**
